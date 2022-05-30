@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PhotoCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="170" id="rfN-Jc-JVH" customClass="PhotoCell" customModule="VKmini" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="170"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rfN-Jc-JVH" id="DcD-P3-7C2">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="170"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.artframe" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="x5r-yF-NDt">
+                        <rect key="frame" x="0.0" y="1" width="414" height="167.5"/>
+                        <color key="tintColor" red="0.95686274770000002" green="0.84313726430000002" blue="0.73725497719999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="x5r-yF-NDt" secondAttribute="trailing" id="PJQ-K9-u7i"/>
+                    <constraint firstAttribute="bottom" secondItem="x5r-yF-NDt" secondAttribute="bottom" id="fxz-Kr-cLI"/>
+                    <constraint firstItem="x5r-yF-NDt" firstAttribute="top" secondItem="DcD-P3-7C2" secondAttribute="top" id="kdD-ec-gZy"/>
+                    <constraint firstItem="x5r-yF-NDt" firstAttribute="leading" secondItem="DcD-P3-7C2" secondAttribute="leading" id="yrK-uQ-jC7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.64313727620000005" green="0.63137257099999999" blue="0.64313727620000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <connections>
+                <outlet property="photoPost" destination="x5r-yF-NDt" id="Ox4-a9-LAj"/>
+            </connections>
+            <point key="canvasLocation" x="53.623188405797109" y="176.78571428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="photo.artframe" catalog="system" width="128" height="93"/>
+    </resources>
+</document>
