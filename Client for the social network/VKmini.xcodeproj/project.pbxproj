@@ -16,6 +16,7 @@
 		BF1FAA1A27BF8CCE00099CBF /* AllFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1FAA1927BF8CCE00099CBF /* AllFriendsCell.swift */; };
 		BF2F638B27C282CC00477F14 /* FriendsPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F638A27C282CC00477F14 /* FriendsPhotosCell.swift */; };
 		BF2F638D27C282EC00477F14 /* FriendsPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F638C27C282EC00477F14 /* FriendsPhotosController.swift */; };
+		BF4AF31F284898AC00327156 /* NewsVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4AF31E284898AC00327156 /* NewsVK.swift */; };
 		BF591D5D2805CEAD00049241 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF591D5C2805CEAD00049241 /* Session.swift */; };
 		BF700FBF27F33D5E00BF59B9 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF700FBE27F33D5E00BF59B9 /* SplashViewController.swift */; };
 		BFA420FC28084A160013CFBA /* LoginVKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA420FB28084A160013CFBA /* LoginVKController.swift */; };
@@ -24,6 +25,7 @@
 		BFC58C57281FD37900B29590 /* UserVKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC58C56281FD37900B29590 /* UserVKService.swift */; };
 		BFC58C59281FD39000B29590 /* PhotoVKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC58C58281FD39000B29590 /* PhotoVKService.swift */; };
 		BFC58C5B281FD3A300B29590 /* GroupVKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC58C5A281FD3A300B29590 /* GroupVKService.swift */; };
+		BFC8755C28475E0200501486 /* NewsVKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC8755B28475E0200501486 /* NewsVKService.swift */; };
 		BFDEA5EC27C3ACCD00E8313D /* AllGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDEA5EB27C3ACCD00E8313D /* AllGroupsController.swift */; };
 		BFDEA5F227C3BF3C00E8313D /* AllGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDEA5F127C3BF3C00E8313D /* AllGroupsCell.swift */; };
 		BFE1DB4927B94C6200043C70 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE1DB4827B94C6200043C70 /* AppDelegate.swift */; };
@@ -53,6 +55,7 @@
 		BF1FAA1927BF8CCE00099CBF /* AllFriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFriendsCell.swift; sourceTree = "<group>"; };
 		BF2F638A27C282CC00477F14 /* FriendsPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPhotosCell.swift; sourceTree = "<group>"; };
 		BF2F638C27C282EC00477F14 /* FriendsPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPhotosController.swift; sourceTree = "<group>"; };
+		BF4AF31E284898AC00327156 /* NewsVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsVK.swift; sourceTree = "<group>"; };
 		BF591D5C2805CEAD00049241 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		BF700FBE27F33D5E00BF59B9 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = SplashsScreen/SplashViewController.swift; sourceTree = "<group>"; };
 		BFA420FB28084A160013CFBA /* LoginVKController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVKController.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 		BFC58C56281FD37900B29590 /* UserVKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVKService.swift; sourceTree = "<group>"; };
 		BFC58C58281FD39000B29590 /* PhotoVKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoVKService.swift; sourceTree = "<group>"; };
 		BFC58C5A281FD3A300B29590 /* GroupVKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVKService.swift; sourceTree = "<group>"; };
+		BFC8755B28475E0200501486 /* NewsVKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsVKService.swift; sourceTree = "<group>"; };
 		BFDEA5EB27C3ACCD00E8313D /* AllGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsController.swift; sourceTree = "<group>"; };
 		BFDEA5F127C3BF3C00E8313D /* AllGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsCell.swift; sourceTree = "<group>"; };
 		BFE1DB4527B94C6200043C70 /* VKmini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKmini.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +119,7 @@
 				BFC58C56281FD37900B29590 /* UserVKService.swift */,
 				BFC58C58281FD39000B29590 /* PhotoVKService.swift */,
 				BFC58C5A281FD3A300B29590 /* GroupVKService.swift */,
+				BFC8755B28475E0200501486 /* NewsVKService.swift */,
 				BFE72DE1282122CD002040D2 /* RealmCacheService.swift */,
 			);
 			path = "Service Layer";
@@ -170,6 +175,7 @@
 				BF1369D7280E986100FCC1E7 /* UserVK.swift */,
 				BFF5CD70280EBBD900640F7B /* PhotoVK.swift */,
 				BFF5CD72280EBD6B00640F7B /* GroupVK.swift */,
+				BF4AF31E284898AC00327156 /* NewsVK.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 				BFC58C55281FCB1C00B29590 /* Extencion+UIImageView.swift in Sources */,
 				BF1AD12327FEC6AA000FBE9D /* Extansion backItem.swift in Sources */,
 				BFF57EFE28410D4600A6E1F9 /* PhotoCell.swift in Sources */,
+				BF4AF31F284898AC00327156 /* NewsVK.swift in Sources */,
 				BF1FAA1A27BF8CCE00099CBF /* AllFriendsCell.swift in Sources */,
 				BF700FBF27F33D5E00BF59B9 /* SplashViewController.swift in Sources */,
 				BFB93F772840AE7100AF5C99 /* NewsController.swift in Sources */,
@@ -330,6 +337,7 @@
 				BFF57EFA28410CD000A6E1F9 /* TitleCell.swift in Sources */,
 				BFC58C57281FD37900B29590 /* UserVKService.swift in Sources */,
 				BFE72DE2282122CD002040D2 /* RealmCacheService.swift in Sources */,
+				BFC8755C28475E0200501486 /* NewsVKService.swift in Sources */,
 				BFDEA5F227C3BF3C00E8313D /* AllGroupsCell.swift in Sources */,
 				BFF28BFE27CBE72600BE1A86 /* LikeControl.swift in Sources */,
 				BF1369D8280E986100FCC1E7 /* UserVK.swift in Sources */,

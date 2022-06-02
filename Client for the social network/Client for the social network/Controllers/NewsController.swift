@@ -2,17 +2,20 @@ import UIKit
 
 class NewsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    private let newsVKService = NewsVKService()
+    var titleNews: [TitleVKNews] = []
+    var bodyNews: [AttachBodyVKNews] = []
     @IBOutlet weak var tableNews: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerTableNews()
-        
+        newsVKService.loadVKNews()
     }
     
     // MARK: UITableViewDelegate, UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,6 +52,9 @@ class NewsController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         case 1:
             let cell = tableNews.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+            // var textNews = bodyNews[indexPath.section]
+            // ячейка не помнит того, что к ней добавлен outlet для вывода текста
+            // cell.textView.text = textNews.text
             return cell
             
         case 2:

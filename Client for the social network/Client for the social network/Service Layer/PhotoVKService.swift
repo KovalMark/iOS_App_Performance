@@ -1,6 +1,5 @@
 import UIKit
 import Alamofire
-import RealmSwift
 
 // MARK: - PhotoService
 final class PhotoVKService {

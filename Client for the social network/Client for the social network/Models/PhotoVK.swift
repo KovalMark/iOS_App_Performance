@@ -28,4 +28,3 @@ struct SizesVKArray: Decodable {
         case url
     }
 }
-
