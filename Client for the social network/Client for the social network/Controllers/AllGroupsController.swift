@@ -14,7 +14,6 @@ class AllGroupsController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createNotificationToken()
         loadGroupDataRealm()
     }
     
@@ -48,34 +47,6 @@ class AllGroupsController: UITableViewController {
         groupsVK.groupAdd { [weak self] group in
             self?.loadGroupData()
             self?.tableView?.reloadData()
-        }
-    }
-    
-    func createNotificationToken() {
-        notificationToken = groupResponse?.observe { [ weak self ] result in
-            guard let self = self else { return }
-            switch result {
-                // кейс подготовки к обновлению данных
-            case .initial(let groupsData):
-                print("\(groupsData.count)")
-            case .update(let groups,
-                         deletions: let deletions,
-                         insertions: let insertions,
-                         modifications: let modifications):
-                let deletionsIndexPath = deletions.map { IndexPath(row: $0, section: 0) }
-                let insertionsIndexPath = insertions.map { IndexPath(row: $0, section: 0) }
-                let modificationsIndexPath = modifications.map { IndexPath(row: $0, section: 0) }
-                
-                DispatchQueue.main.async {
-                    self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: deletionsIndexPath, with: .automatic)
-                    self.tableView.insertRows(at: insertionsIndexPath, with: .automatic)
-                    self.tableView.reloadRows(at: modificationsIndexPath, with: .automatic)
-                    self.tableView.endUpdates()
-                }
-            case .error(let error):
-                print("\(error)")
-            }
         }
     }
 }

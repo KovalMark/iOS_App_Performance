@@ -27,13 +27,13 @@ final class NewsVKService {
         }
     }
     
-    // добавление заголовка, подзаголовка и аватарки поста
-    func titleNewsAdd(completion: @escaping ([TitleVKNews]) -> Void){
+    // парсинг данных
+    func newsAdd(completion: @escaping (NewsVK) -> Void){
         DispatchQueue.global().async {
             let path = "/method/newsfeed.get"
             let methodName: Parameters = [
                 "access_token": self.apiKey,
-                "filters": "post",
+                "filters": "post,photo",
                 "v": "5.130"
             ]
             
@@ -41,28 +41,12 @@ final class NewsVKService {
             
             AF.request(url, method: .get, parameters: methodName).responseData { [ weak self ] response in
                 guard let data = response.value else { return }
-                let userArray = try! JSONDecoder().decode(NewsVKResponse.self, from: data)
-                completion(userArray.response.groups)
-            }
-        }
-    }
-    
-    // добавление фото и текста поста
-    func bodyNewsAdd(completion: @escaping ([BodyVKNews]) -> Void){
-        DispatchQueue.global().async {
-            let path = "/method/newsfeed.get"
-            let methodName: Parameters = [
-                "access_token": self.apiKey,
-                "filters": "photo",
-                "v": "5.130"
-            ]
-            
-            let url = self.baseUrl+path
-            
-            AF.request(url, method: .get, parameters: methodName).responseData { [ weak self ] response in
-                guard let data = response.value else { return }
-                let userArray = try! JSONDecoder().decode(NewsVKResponse.self, from: data)
-                completion(userArray.response.items)
+                do {
+                    let userArray = try JSONDecoder().decode(NewsVKResponse.self, from: data)
+                    completion(userArray.response)
+                } catch {
+                    print(error)
+                }
             }
         }
     }
