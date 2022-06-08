@@ -37,7 +37,7 @@ final class GroupVKService: AsyncOperation {
         
         AF.request(url, method: .get, parameters: methodName).responseData { [ weak self ] response in
             guard let data = response.value else { return }
-            let userArray = try! JSONDecoder().decode(GroupVKResponse.self, from: data)
+            guard let userArray = try? JSONDecoder().decode(GroupVKResponse.self, from: data) else { return }
             self?.saveGroupData(userArray.response.items)
             completion(userArray.response.items)
         }
