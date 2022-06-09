@@ -16,6 +16,7 @@
 		BF1FAA1A27BF8CCE00099CBF /* AllFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1FAA1927BF8CCE00099CBF /* AllFriendsCell.swift */; };
 		BF2F638B27C282CC00477F14 /* FriendsPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F638A27C282CC00477F14 /* FriendsPhotosCell.swift */; };
 		BF2F638D27C282EC00477F14 /* FriendsPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2F638C27C282EC00477F14 /* FriendsPhotosController.swift */; };
+		BF34321B2850E08A00631E04 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = BF34321A2850E08A00631E04 /* PromiseKit */; };
 		BF4AF31F284898AC00327156 /* NewsVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4AF31E284898AC00327156 /* NewsVK.swift */; };
 		BF591D5D2805CEAD00049241 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF591D5C2805CEAD00049241 /* Session.swift */; };
 		BF700FBF27F33D5E00BF59B9 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF700FBE27F33D5E00BF59B9 /* SplashViewController.swift */; };
@@ -24,7 +25,7 @@
 		BFA420FC28084A160013CFBA /* LoginVKController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA420FB28084A160013CFBA /* LoginVKController.swift */; };
 		BFB93F772840AE7100AF5C99 /* NewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB93F762840AE7100AF5C99 /* NewsController.swift */; };
 		BFC58C55281FCB1C00B29590 /* Extencion+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC58C54281FCB1C00B29590 /* Extencion+UIImageView.swift */; };
-		BFC58C57281FD37900B29590 /* UserVKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC58C56281FD37900B29590 /* UserVKService.swift */; };
+		BFC58C57281FD37900B29590 /* FriendVKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC58C56281FD37900B29590 /* FriendVKService.swift */; };
 		BFC58C59281FD39000B29590 /* PhotoVKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC58C58281FD39000B29590 /* PhotoVKService.swift */; };
 		BFC8755C28475E0200501486 /* NewsVKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC8755B28475E0200501486 /* NewsVKService.swift */; };
 		BFDEA5EC27C3ACCD00E8313D /* AllGroupsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDEA5EB27C3ACCD00E8313D /* AllGroupsController.swift */; };
@@ -64,7 +65,7 @@
 		BFA420FB28084A160013CFBA /* LoginVKController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVKController.swift; sourceTree = "<group>"; };
 		BFB93F762840AE7100AF5C99 /* NewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsController.swift; sourceTree = "<group>"; };
 		BFC58C54281FCB1C00B29590 /* Extencion+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extencion+UIImageView.swift"; sourceTree = "<group>"; };
-		BFC58C56281FD37900B29590 /* UserVKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVKService.swift; sourceTree = "<group>"; };
+		BFC58C56281FD37900B29590 /* FriendVKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendVKService.swift; sourceTree = "<group>"; };
 		BFC58C58281FD39000B29590 /* PhotoVKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoVKService.swift; sourceTree = "<group>"; };
 		BFC8755B28475E0200501486 /* NewsVKService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsVKService.swift; sourceTree = "<group>"; };
 		BFDEA5EB27C3ACCD00E8313D /* AllGroupsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsController.swift; sourceTree = "<group>"; };
@@ -97,6 +98,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16B492BF2833F4EE00248FEF /* RealmSwift in Frameworks */,
+				BF34321B2850E08A00631E04 /* PromiseKit in Frameworks */,
 				16B492BD2833F4EE00248FEF /* Realm in Frameworks */,
 				16B492BA2833F45100248FEF /* Alamofire in Frameworks */,
 			);
@@ -119,7 +121,7 @@
 			children = (
 				BF7D72D0284F590200BB001E /* AsyncOperation.swift */,
 				BF591D5C2805CEAD00049241 /* Session.swift */,
-				BFC58C56281FD37900B29590 /* UserVKService.swift */,
+				BFC58C56281FD37900B29590 /* FriendVKService.swift */,
 				BFC58C58281FD39000B29590 /* PhotoVKService.swift */,
 				BF7D72D2284F62A200BB001E /* GroupVKService.swift */,
 				BFC8755B28475E0200501486 /* NewsVKService.swift */,
@@ -258,6 +260,7 @@
 				16B492B92833F45100248FEF /* Alamofire */,
 				16B492BC2833F4EE00248FEF /* Realm */,
 				16B492BE2833F4EE00248FEF /* RealmSwift */,
+				BF34321A2850E08A00631E04 /* PromiseKit */,
 			);
 			productName = "Client for the social network";
 			productReference = BFE1DB4527B94C6200043C70 /* VKmini.app */;
@@ -290,6 +293,7 @@
 			packageReferences = (
 				16B492B82833F45100248FEF /* XCRemoteSwiftPackageReference "Alamofire" */,
 				16B492BB2833F4EE00248FEF /* XCRemoteSwiftPackageReference "realm-swift" */,
+				BF3432192850E08A00631E04 /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			productRefGroup = BFE1DB4627B94C6200043C70 /* Products */;
 			projectDirPath = "";
@@ -339,7 +343,7 @@
 				BFF5CD73280EBD6B00640F7B /* GroupVK.swift in Sources */,
 				BF1FAA1827BF8C9D00099CBF /* AllFriendsController.swift in Sources */,
 				BFF57EFA28410CD000A6E1F9 /* TitleCell.swift in Sources */,
-				BFC58C57281FD37900B29590 /* UserVKService.swift in Sources */,
+				BFC58C57281FD37900B29590 /* FriendVKService.swift in Sources */,
 				BFE72DE2282122CD002040D2 /* RealmCacheService.swift in Sources */,
 				BFC8755C28475E0200501486 /* NewsVKService.swift in Sources */,
 				BFDEA5F227C3BF3C00E8313D /* AllGroupsCell.swift in Sources */,
@@ -591,6 +595,14 @@
 				kind = branch;
 			};
 		};
+		BF3432192850E08A00631E04 /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -608,6 +620,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 16B492BB2833F4EE00248FEF /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		BF34321A2850E08A00631E04 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BF3432192850E08A00631E04 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
