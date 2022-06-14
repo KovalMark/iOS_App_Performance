@@ -28,7 +28,7 @@ class AllGroupsController: UITableViewController {
         let groups = group[indexPath.row]
         
         cell.labelAllGroups.text = groups.name
-        cell.ImageAllGroups.loadImage(with: groups.photo)
+        cell.ImageAllGroups.loadImageCache(groups.photo)
         
         return cell
     }

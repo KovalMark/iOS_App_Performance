@@ -32,7 +32,7 @@ class AllFriendsController: UITableViewController {
         
         cell.labelAllFriendsCell.text = friends.firstName
         cell.secondLabelAllFriendsCell.text = friends.lastName
-        cell.imageAllFriendsCell.loadImage(with: friends.photo)
+        cell.imageAllFriendsCell.loadImageCache(friends.photo)
         
         return cell
     }

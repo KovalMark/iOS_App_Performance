@@ -1,4 +1,5 @@
 import UIKit
+import RealmSwift
 
 // MARK: NewsController
 class NewsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -13,6 +14,10 @@ class NewsController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         registerTableNews()
+        // при запуске метода с парсингом, данные в ячейках не отображаются
+        newsVKService.newsAdd { [weak self] news in
+            self?.news = [news]
+        }
     }
     
     // MARK: UITableViewDelegate, UITableViewDataSource
@@ -80,7 +85,7 @@ class NewsController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 // MARK: Make size for cells
 extension NewsController {
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
             
