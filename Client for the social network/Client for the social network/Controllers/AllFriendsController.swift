@@ -4,7 +4,7 @@ import RealmSwift
 // MARK: - AllFriendsController for friends
 class AllFriendsController: UITableViewController {
     
-    private let friendsVK = UserVKService()
+    private let friendsVK = FriendVKService()
     var friend: [UserVKArray] = []
     let realm = RealmCacheService()
     private var friendResponse: Results<UserVKArray>? {
@@ -16,6 +16,8 @@ class AllFriendsController: UITableViewController {
         super.viewDidLoad()
         createNotificationToken()
         loadFriendDataRealm()
+        // при использовании метода promiseLoadVKFriend() происходит падение приложения с ошибкой: "Thread 1: signal SIGABRT" В консоли ошибка: "Could not cast value of type '__NSSingleEntryDictionaryI' (0x154011f88) to 'NSArray' (0x1da9ebb18)."
+        friendsVK.promiseLoadVKFriend()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,7 +32,7 @@ class AllFriendsController: UITableViewController {
         
         cell.labelAllFriendsCell.text = friends.firstName
         cell.secondLabelAllFriendsCell.text = friends.lastName
-        cell.imageAllFriendsCell.loadImage(with: friends.photo)
+        cell.imageAllFriendsCell.loadImageCache(friends.photo)
         
         return cell
     }

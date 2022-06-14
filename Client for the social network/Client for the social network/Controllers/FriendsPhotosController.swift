@@ -28,7 +28,7 @@ class FriendsPhotosController: UICollectionViewController {
         else {
             preconditionFailure("Нет друзей")
         }
-        cell.friendsPhotos.loadImage(with: storedImages[indexPath.item])
+        cell.friendsPhotos.loadImageCache(storedImages[indexPath.item])
         
         return cell
     }

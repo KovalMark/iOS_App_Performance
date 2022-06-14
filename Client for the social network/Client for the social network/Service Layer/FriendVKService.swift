@@ -1,9 +1,10 @@
 import UIKit
 import Alamofire
 import RealmSwift
+import PromiseKit
 
 // MARK: - FriendService
-final class UserVKService {
+final class FriendVKService {
     
     let baseUrl = "https://api.vk.com"
     let apiKey = Session.instance.token
@@ -24,6 +25,29 @@ final class UserVKService {
         }
     }
     
+    // MARK: - Use PromiseKit
+    // Обещание упаковки. Оборачиваем асинхронную операцию в объект, который может использовать процесс обещания
+    func promiseLoadVKFriend(on queue: DispatchQueue = .main) -> Promise<[UserVKArray]> {
+
+        let path = "/method/friends.get"
+        let methodName: Parameters = [ "access_token": apiKey,
+                                       "fields": "photo_50",
+                                       "v": "5.130"]
+
+        let promise = Promise<[UserVKArray]> { resolver in AF.request(baseUrl + path, method: .get, parameters: methodName).responseJSON {response in
+            switch response.result {
+
+            case .success(let value):
+                resolver.fulfill(response.value as! [UserVKArray])
+                
+            case .failure(let error):
+                resolver.reject(error)
+            }
+        }
+        }
+        return promise
+    }
+    
     func friendAdd(completion: @escaping ([UserVKArray]) -> Void){
         let path = "/method/friends.get"
         let methodName: Parameters = [
@@ -36,7 +60,7 @@ final class UserVKService {
         
         AF.request(url, method: .get, parameters: methodName).responseData { [ weak self ] response in
             guard let data = response.value else { return }
-            let userArray = try! JSONDecoder().decode(UserVKResponse.self, from: data)
+            guard let userArray = try? JSONDecoder().decode(UserVKResponse.self, from: data) else { return }
             self?.saveFriendData(userArray.response.items)
             completion(userArray.response.items)
         }
