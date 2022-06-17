@@ -9,6 +9,7 @@ class FriendsPhotosController: UICollectionViewController {
     var photo: [PhotoVKArray] = []
     var friendId: String = ""
     var storedImages: [String] = []
+    private var imageService: ImageService?
     
     override func viewDidLoad() {
         super.viewDidLoad()

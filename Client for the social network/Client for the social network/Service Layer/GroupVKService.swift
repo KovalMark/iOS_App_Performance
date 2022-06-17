@@ -2,9 +2,9 @@ import UIKit
 import Alamofire
 import RealmSwift
 
-final class GroupVKService: AsyncOperation {
+// MARK: - GroupService
+final class GroupVKService {
     
-    // MARK: - loadVKGroup
     let baseUrl = "https://api.vk.com"
     let apiKey = Session.instance.token
     
@@ -24,7 +24,6 @@ final class GroupVKService: AsyncOperation {
         }
     }
     
-    // MARK: - groupAdd
     func groupAdd(completion: @escaping ([GroupVKArray]) -> Void){
         let path = "/method/groups.get"
         let methodName: Parameters = [
@@ -43,7 +42,6 @@ final class GroupVKService: AsyncOperation {
         }
     }
     
-    // MARK: - saveGroupData
     func saveGroupData(_ userGroup: [GroupVKArray]) {
         do {
             let realm = try Realm()
@@ -54,22 +52,6 @@ final class GroupVKService: AsyncOperation {
             try realm.commitWrite()
         } catch {
             print(error)
-        }
-    }
-    
-    // MARK: - AsyncOperation
-    override func cancel() {
-        request.cancel()
-        super.cancel()
-    }
-    
-    private var request: DataRequest = AF.request("https://api.vk.com/method/friends.get?access_token=8ea3c7fafd7b82fea6a0f1beefd5b0f581028809c2653548555245b243cfa1058be818d9538d6de06721c&fields=photo_50&v=5.131")
-    var data: Data?
-    override func main() {
-        request.responseData(queue: DispatchQueue.global()) { [weak self]
-            response in
-            self?.data = response.data
-            self?.state = .finished
         }
     }
 }

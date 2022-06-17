@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - extension UIImageView
 extension UIImageView {
     
     func loadImageCache(_ imageUrl: String) {
@@ -19,7 +20,6 @@ extension UIImageView {
                     print("error", error?.localizedDescription ?? "not localizedDescription")
                     return
                 }
-                
                 let cacheResponse = CachedURLResponse(response: response, data: data)
                 cache.storeCachedResponse(cacheResponse, for: request)
                 DispatchQueue.main.async {
