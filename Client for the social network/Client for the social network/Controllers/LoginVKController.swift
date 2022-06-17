@@ -88,4 +88,3 @@ private extension LoginVKController {
         webView.load(request)
     }
 }
-

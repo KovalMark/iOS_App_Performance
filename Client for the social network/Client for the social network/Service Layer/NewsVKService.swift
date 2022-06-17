@@ -1,50 +1,146 @@
-import UIKit
-import Alamofire
+import Foundation
+import PromiseKit
 
 // MARK: - NewsVKService
-// MARK: - Use DispatchQueue.global().async
 final class NewsVKService {
     
-    let baseUrl = "https://api.vk.com"
-    let apiKey = Session.instance.token
+    private var urlConstructor = URLComponents()
+    private let constants = NetworkConstants()
+    private let configuration: URLSessionConfiguration!
+    private let session: URLSession!
     
-    // функция для отображения полученных данных в консоль
-    func loadVKNews() {
-        DispatchQueue.global().async {
-            let path = "/method/newsfeed.get"
-            let methodName: Parameters = [
-                "access_token": self.apiKey,
-                "filters": "post,photo",
-                "v": "5.130"
-            ]
-            
-            let url = self.baseUrl+path
-            
-            AF.request(url, method: .get, parameters: methodName).responseJSON { response in
-                print("\nСписок новостей\n")
-                print(response.value ?? "")
+    init() {
+        urlConstructor.scheme = "https"
+        urlConstructor.host = "api.vk.com"
+        configuration = URLSessionConfiguration.default
+        session = URLSession(configuration: configuration)
+    }
+    
+    func getAuthorizeRequest() -> URLRequest? {
+        urlConstructor.host = "oauth.vk.com"
+        urlConstructor.path = "/authorize"
+        
+        urlConstructor.queryItems = [
+            URLQueryItem(name: "client_id", value: constants.clientID),
+            URLQueryItem(name: "scope", value: constants.scope),
+            URLQueryItem(name: "display", value: "mobile"),
+            URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
+            URLQueryItem(name: "response_type", value: "token"),
+            URLQueryItem(name: "v", value: constants.versionAPI)
+        ]
+        
+        guard let url = urlConstructor.url else { return nil }
+        let request = URLRequest(url: url)
+        return request
+    }
+    
+    //MARK: - News feed (Promise)
+    // Result use
+    // 1. Создаем URL для запроса
+    func getUrl() -> Promise<URL> {
+        urlConstructor.path = "/method/newsfeed.get"
+        
+        urlConstructor.queryItems = [
+            URLQueryItem(name: "filters", value: "post"),
+            //            URLQueryItem(name: "start_from", value: "next_from"),
+            URLQueryItem(name: "count", value: "20"),
+            URLQueryItem(name: "access_token", value: Session.instance.token),
+            URLQueryItem(name: "v", value: constants.versionAPI),
+        ]
+        
+        return Promise  { resolver in
+            guard let url = urlConstructor.url else {
+                resolver.reject(AppError.notCorrectUrl)
+                return
+            }
+            resolver.fulfill(url)
+        }
+    }
+    
+    func getUrl(_ nextForm: String) -> Promise<URL> {
+        urlConstructor.path = "/method/newsfeed.get"
+        
+        urlConstructor.queryItems = [
+            URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "start_from", value: nextForm),
+            URLQueryItem(name: "count", value: "20"),
+            URLQueryItem(name: "access_token", value: Session.instance.token),
+            URLQueryItem(name: "v", value: constants.versionAPI),
+        ]
+        
+        return Promise  { resolver in
+            guard let url = urlConstructor.url else {
+                resolver.reject(AppError.notCorrectUrl)
+                return
+            }
+            resolver.fulfill(url)
+        }
+    }
+    
+    func getUrlWithTime(_ timeInterval1970: String) -> Promise<URL> {
+        urlConstructor.path = "/method/newsfeed.get"
+        
+        urlConstructor.queryItems = [
+            URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "start_from", value: "next_from"),
+            URLQueryItem(name: "start_time", value: timeInterval1970),
+            URLQueryItem(name: "count", value: "1"),
+            URLQueryItem(name: "access_token", value: Session.instance.token),
+            URLQueryItem(name: "v", value: constants.versionAPI),
+        ]
+        
+        return Promise  { resolver in
+            guard let url = urlConstructor.url else {
+                resolver.reject(AppError.notCorrectUrl)
+                return
+            }
+            resolver.fulfill(url)
+        }
+    }
+    
+    // 2. Создаем запрос получили данные
+    func getData(_ url: URL) -> Promise<Data> {
+        return Promise { resolver in
+            session.dataTask(with: url) {  (data, response, error) in
+                guard let data = data else {
+                    resolver.reject(AppError.errorTask)
+                    return
+                }
+                resolver.fulfill(data)
+            }.resume()
+        }
+    }
+    
+    // Парсим Данные
+    func getParsedData(_ data: Data) -> Promise<ItemsNews> {
+        return Promise  { resolver in
+            do {
+                let response = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                resolver.fulfill(response)
+            } catch {
+                resolver.reject(AppError.failedToDecode)
             }
         }
     }
     
-    // парсинг данных
-    func newsAdd(completion: @escaping (NewsVK) -> Void){
-        DispatchQueue.global().async {
-            let path = "/method/newsfeed.get"
-            let methodName: Parameters = [
-                "access_token": self.apiKey,
-                "filters": "post,photo",
-                "v": "5.130"
-            ]
+    func getNews(_ items: ItemsNews) -> Promise<[NewsVK]> {
+        return Promise<[NewsVK]> { resolver in
+            var news = items.items
+            let groups = items.groups
+            let profiles = items.profiles
             
-            let url = self.baseUrl+path
-            
-            AF.request(url, method: .get, parameters: methodName).responseData { [ weak self ] response in
-                guard let data = response.value else { return }
-                guard let userArray = try? JSONDecoder().decode(NewsVKResponse.self, from: data) else { return }
-                completion(userArray.response)
-            
+            for i in 0..<news.count {
+                if news[i].sourceID < 0 {
+                    let group = groups.first(where: { $0.id == -news[i].sourceID })
+                    news[i].avatarURL = group?.avatarURL
+                    news[i].creatorName = group?.name
+                } else {
+                    let profile = profiles.first(where: { $0.id == news[i].sourceID })
+                    news[i].avatarURL = profile?.avatarURL
+                    news[i].creatorName = (profile?.firstName ?? "") + (profile?.lastName ?? "")
+                }
             }
+            resolver.fulfill(news)
         }
     }
 }

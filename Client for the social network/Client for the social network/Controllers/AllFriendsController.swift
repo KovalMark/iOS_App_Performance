@@ -4,7 +4,7 @@ import RealmSwift
 // MARK: - AllFriendsController for friends
 class AllFriendsController: UITableViewController {
     
-    private let friendsVK = FriendVKService()
+    private let friendsVK = UserVKService()
     var friend: [UserVKArray] = []
     let realm = RealmCacheService()
     private var friendResponse: Results<UserVKArray>? {
@@ -14,10 +14,7 @@ class AllFriendsController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createNotificationToken()
         loadFriendDataRealm()
-        // при использовании метода promiseLoadVKFriend() происходит падение приложения с ошибкой: "Thread 1: signal SIGABRT" В консоли ошибка: "Could not cast value of type '__NSSingleEntryDictionaryI' (0x154011f88) to 'NSArray' (0x1da9ebb18)."
-        friendsVK.promiseLoadVKFriend()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,7 +38,7 @@ class AllFriendsController: UITableViewController {
         if segue.destination is FriendsPhotosController{
             guard let friendsPhotosVC = segue.destination as? FriendsPhotosController else { return }
             guard
-                let indexPathSection = tableView.indexPathForSelectedRow?.section,
+//                let indexPathSection = tableView.indexPathForSelectedRow?.section,
                 let indexPathRow = tableView.indexPathForSelectedRow?.row
             else {
                 return
@@ -65,33 +62,6 @@ class AllFriendsController: UITableViewController {
         friendsVK.friendAdd { [weak self] friend in
             self?.loadFriendData()
             self?.tableView?.reloadData()
-        }
-    }
-    
-    func createNotificationToken() {
-        notificationToken = friendResponse?.observe { [ weak self ] result in
-            guard let self = self else { return }
-            switch result {
-            case .initial(let groupsData):
-                print("\(groupsData.count)")
-            case .update(let groups,
-                         deletions: let deletions,
-                         insertions: let insertions,
-                         modifications: let modifications):
-                let deletionsIndexPath = deletions.map { IndexPath(row: $0, section: 0) }
-                let insertionsIndexPath = insertions.map { IndexPath(row: $0, section: 0) }
-                let modificationsIndexPath = modifications.map { IndexPath(row: $0, section: 0) }
-                
-                DispatchQueue.main.async {
-                    self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: deletionsIndexPath, with: .automatic)
-                    self.tableView.insertRows(at: insertionsIndexPath, with: .automatic)
-                    self.tableView.reloadRows(at: modificationsIndexPath, with: .automatic)
-                    self.tableView.endUpdates()
-                }
-            case .error(let error):
-                print("\(error)")
-            }
         }
     }
 }

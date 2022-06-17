@@ -1,10 +1,9 @@
 import UIKit
 import Alamofire
 import RealmSwift
-import PromiseKit
 
 // MARK: - FriendService
-final class FriendVKService {
+final class UserVKService {
     
     let baseUrl = "https://api.vk.com"
     let apiKey = Session.instance.token
@@ -23,29 +22,6 @@ final class FriendVKService {
             print("\nСписок друзей\n")
             print(response.value ?? "")
         }
-    }
-    
-    // MARK: - Use PromiseKit
-    // Обещание упаковки. Оборачиваем асинхронную операцию в объект, который может использовать процесс обещания
-    func promiseLoadVKFriend(on queue: DispatchQueue = .main) -> Promise<[UserVKArray]> {
-
-        let path = "/method/friends.get"
-        let methodName: Parameters = [ "access_token": apiKey,
-                                       "fields": "photo_50",
-                                       "v": "5.130"]
-
-        let promise = Promise<[UserVKArray]> { resolver in AF.request(baseUrl + path, method: .get, parameters: methodName).responseJSON {response in
-            switch response.result {
-
-            case .success(let value):
-                resolver.fulfill(response.value as! [UserVKArray])
-                
-            case .failure(let error):
-                resolver.reject(error)
-            }
-        }
-        }
-        return promise
     }
     
     func friendAdd(completion: @escaping ([UserVKArray]) -> Void){

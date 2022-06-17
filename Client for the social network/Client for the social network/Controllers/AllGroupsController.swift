@@ -7,6 +7,7 @@ class AllGroupsController: UITableViewController {
     private let groupsVK = GroupVKService()
     var group: [GroupVKArray] = []
     let realm = RealmCacheService()
+    private var imageService: ImageService?
     private var groupResponse: Results<GroupVKArray>? {
         realm.read(GroupVKArray.self)
     }
