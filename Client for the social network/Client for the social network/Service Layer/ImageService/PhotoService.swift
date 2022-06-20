@@ -2,7 +2,7 @@ import UIKit
 import Alamofire
 
 // MARK: - PhotoService
-class ImageService {
+class PhotoService {
     
     private let cacheLifeTime: TimeInterval = 30 * 24 * 60 * 60
     private var images = [String: UIImage]()
@@ -67,7 +67,7 @@ class ImageService {
         guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else { return nil }
         let hashName = url.split(separator: "/").last ?? "default"
         
-        return cachesDirectory.appendingPathComponent(ImageService.pathName + "/" + hashName).path
+        return cachesDirectory.appendingPathComponent(PhotoService.pathName + "/" + hashName).path
     }
     
     private func loadPhoto(atIndexPath indexPath: IndexPath, byUrl url: String) {
@@ -99,7 +99,7 @@ fileprivate protocol DataReloadable {
 }
 
 // MARK: - extension PhotoService
-extension ImageService {
+extension PhotoService {
     
     private class Table: DataReloadable {
         let table: UITableView

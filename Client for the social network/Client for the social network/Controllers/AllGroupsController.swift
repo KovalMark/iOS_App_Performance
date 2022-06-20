@@ -7,7 +7,6 @@ class AllGroupsController: UITableViewController {
     private let groupsVK = GroupVKService()
     var group: [GroupVKArray] = []
     let realm = RealmCacheService()
-    private var imageService: ImageService?
     private var groupResponse: Results<GroupVKArray>? {
         realm.read(GroupVKArray.self)
     }
@@ -29,7 +28,7 @@ class AllGroupsController: UITableViewController {
         let groups = group[indexPath.row]
         
         cell.labelAllGroups.text = groups.name
-        cell.ImageAllGroups.loadImageCache(groups.photo)
+        cell.ImageAllGroups.loadImage(with: groups.photo)
         
         return cell
     }

@@ -29,7 +29,7 @@ class AllFriendsController: UITableViewController {
         
         cell.labelAllFriendsCell.text = friends.firstName
         cell.secondLabelAllFriendsCell.text = friends.lastName
-        cell.imageAllFriendsCell.loadImageCache(friends.photo)
+        cell.imageAllFriendsCell.loadImage(with: friends.photo)
         
         return cell
     }
@@ -38,7 +38,7 @@ class AllFriendsController: UITableViewController {
         if segue.destination is FriendsPhotosController{
             guard let friendsPhotosVC = segue.destination as? FriendsPhotosController else { return }
             guard
-//                let indexPathSection = tableView.indexPathForSelectedRow?.section,
+                let indexPathSection = tableView.indexPathForSelectedRow?.section,
                 let indexPathRow = tableView.indexPathForSelectedRow?.row
             else {
                 return

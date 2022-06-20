@@ -5,7 +5,7 @@ class NewsController: UIViewController {
     
     private let service = NewsVKService()
     private var news: [NewsVK] = []
-    private var imageService: ImageService?
+    private var imageService: PhotoService?
     private var lastDateString: String?
     var nextForm = ""
     var isLoading = false
@@ -19,13 +19,19 @@ class NewsController: UIViewController {
     @IBOutlet weak var newsTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    // MARK: DidLoad / WillAppear
+    // MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageService = ImageService(container: newsTableView)
+        imageService = PhotoService(container: newsTableView)
         setupRefreshControl()
-        registerCell()
-        selfNewsTableView()
+        
+        newsTableView.delegate = self
+        newsTableView.dataSource = self
+        newsTableView.prefetchDataSource = self
+        
+        newsTableView.register(NewsHeader.self, forHeaderFooterViewReuseIdentifier: NewsHeader.identifier)
+        newsTableView.register(NewsImageCell.self, forCellReuseIdentifier: NewsImageCell.identifier)
+        newsTableView.register(NewsTextCell.self, forCellReuseIdentifier: NewsTextCell.identifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,7 +105,7 @@ class NewsController: UIViewController {
     }
 }
 
-// MARK: extension NewsController
+// MARK: extension News
 // setting for cells
 extension NewsController: UITableViewDelegate, UITableViewDataSource {
     
@@ -155,6 +161,7 @@ extension NewsController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewsHeader.identifier) as? NewsHeader
         
+        
         header?.configure(avatarImage: news[section].avatarURL, nameOwner: news[section].creatorName)
         
         return header
@@ -175,10 +182,9 @@ extension NewsController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: extension NewsController
+// MARK: extension News
 // news update
 extension NewsController: UITableViewDataSourcePrefetching {
-    
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         guard let maxSection = indexPaths.map({ $0.section }).max() else {
             return
@@ -210,22 +216,5 @@ extension NewsController: UITableViewDataSourcePrefetching {
                     print(error)
                 }
         }
-    }
-}
-
-// MARK: extension NewsController
-// register and self newsTableView
-extension NewsController {
-    
-    func registerCell() {
-        newsTableView.register(NewsHeader.self, forHeaderFooterViewReuseIdentifier: NewsHeader.identifier)
-        newsTableView.register(NewsImageCell.self, forCellReuseIdentifier: NewsImageCell.identifier)
-        newsTableView.register(NewsTextCell.self, forCellReuseIdentifier: NewsTextCell.identifier)
-    }
-    
-    func selfNewsTableView() {
-        newsTableView.delegate = self
-        newsTableView.dataSource = self
-        newsTableView.prefetchDataSource = self
     }
 }
