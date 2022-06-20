@@ -9,7 +9,6 @@ class FriendsPhotosController: UICollectionViewController {
     var photo: [PhotoVKArray] = []
     var friendId: String = ""
     var storedImages: [String] = []
-    private var imageService: ImageService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +28,7 @@ class FriendsPhotosController: UICollectionViewController {
         else {
             preconditionFailure("Нет друзей")
         }
-        cell.friendsPhotos.loadImageCache(storedImages[indexPath.item])
+        cell.friendsPhotos.loadImage(with: storedImages[indexPath.item])
         
         return cell
     }

@@ -26,8 +26,8 @@ class NewsHeader: UITableViewHeaderFooterView {
         shadowImageView.layer.cornerRadius = 50
         shadowImageView.layer.shadowColor = #colorLiteral(red: 1, green: 0.9959130883, blue: 1, alpha: 1)
         shadowImageView.layer.shadowOffset = .zero
-        shadowImageView.layer.shadowRadius = 5
-        shadowImageView.layer.shadowOpacity = 0.5
+        shadowImageView.layer.shadowRadius = 15
+        shadowImageView.layer.shadowOpacity = 0.4
         shadowImageView.layer.masksToBounds = false
         
         return shadowImageView

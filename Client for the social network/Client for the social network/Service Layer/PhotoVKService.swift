@@ -38,7 +38,7 @@ final class PhotoVKService {
         
         AF.request(url, method: .get, parameters: methodName).responseData { [ weak self ] response in
             guard let data = response.value else { return }
-            guard let userArray = try? JSONDecoder().decode(PhotoVKResponse.self, from: data) else { return }
+            let userArray = try! JSONDecoder().decode(PhotoVKResponse.self, from: data)
             completion(userArray.response.items)
         }
     }
